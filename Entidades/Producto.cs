@@ -21,6 +21,8 @@ namespace Entidades
             Categoria = categoria;
         }
 
+        public Producto() { }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as Producto);

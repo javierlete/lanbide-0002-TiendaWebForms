@@ -12,6 +12,7 @@ namespace Daos
         T ObtenerPorId(long id);
         T Insertar(T objeto);
         T Modificar(T objeto);
+        void Borrar(T objeto);
         void Borrar(long id);
     }
 }

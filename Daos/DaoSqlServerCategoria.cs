@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Daos
 {
-    public class DaoSqlServerCategoria : IDao<Categoria>
+    public class DaoSqlServerCategoria : IDaoCategoria
     {
         private const string CADENA_CONEXION = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=mf0966;Integrated Security=True";
         private const string SQL_SELECT = @"SELECT * FROM Categorias";
@@ -35,6 +35,8 @@ namespace Daos
         {
             using (IDbConnection con = ObtenerConexion())
             {
+                con.Open();
+
                 IDbCommand com = con.CreateCommand();
 
                 com.CommandText = SQL_SELECT;
@@ -68,6 +70,17 @@ namespace Daos
             throw new NotImplementedException();
         }
 
+        public void Borrar(Categoria categoria)
+        {
+            if (categoria.Id.HasValue)
+            {
+                Borrar(categoria.Id.Value);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
         public void Borrar(long id)
         {
             throw new NotImplementedException();

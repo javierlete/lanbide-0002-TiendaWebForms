@@ -18,6 +18,8 @@ namespace Entidades
             Nombre = nombre;
         }
 
+        public Categoria() { }
+
         public override bool Equals(object obj)
         {
             return Equals(obj as Categoria);
