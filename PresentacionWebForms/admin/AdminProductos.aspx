@@ -20,7 +20,42 @@
                     <asp:Parameter Name="id" Type="Int64"></asp:Parameter>
                 </DeleteParameters>
             </asp:ObjectDataSource>
+            <asp:FormView DataKeyNames="Id" runat="server" DataSourceID="FormularioDataSource">
+                <EditItemTemplate>
+                    Id:
+                    <asp:TextBox Text='<%# Bind("Id") %>' runat="server" ID="IdTextBox" /><br />
+                    Nombre:
+                    <asp:TextBox Text='<%# Bind("Nombre") %>' runat="server" ID="NombreTextBox" /><br />
+                    Productos:
+                    <asp:TextBox Text='<%# Bind("Productos") %>' runat="server" ID="ProductosTextBox" /><br />
+                    <asp:LinkButton runat="server" Text="Actualizar" CommandName="Update" ID="UpdateButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancelar" CommandName="Cancel" ID="UpdateCancelButton" CausesValidation="False" />
+                </EditItemTemplate>
+                <InsertItemTemplate>
+                    Id:
+                    <asp:TextBox Text='<%# Bind("Id") %>' runat="server" ID="IdTextBox" /><br />
+                    Nombre:
+                    <asp:TextBox Text='<%# Bind("Nombre") %>' runat="server" ID="NombreTextBox" /><br />
+                    Productos:
+                    <asp:TextBox Text='<%# Bind("Productos") %>' runat="server" ID="ProductosTextBox" /><br />
+                    <asp:LinkButton runat="server" Text="Insertar" CommandName="Insert" ID="InsertButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancelar" CommandName="Cancel" ID="InsertCancelButton" CausesValidation="False" />
+                </InsertItemTemplate>
+                <ItemTemplate>
+                    Id:
+                    <asp:Label Text='<%# Bind("Id") %>' runat="server" ID="IdLabel" /><br />
+                    Nombre:
+                    <asp:Label Text='<%# Bind("Nombre") %>' runat="server" ID="NombreLabel" /><br />
+                    Productos:
+                    <asp:Label Text='<%# Bind("Productos") %>' runat="server" ID="ProductosLabel" /><br />
+                    <asp:LinkButton runat="server" Text="Editar" CommandName="Edit" ID="EditButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Eliminar" CommandName="Delete" ID="DeleteButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Nuevo" CommandName="New" ID="NewButton" CausesValidation="False" />
+                </ItemTemplate>
+            </asp:FormView>
+            <asp:ObjectDataSource OnObjectCreating="ListadoDataSource_ObjectCreating" runat="server" ID="FormularioDataSource" DataObjectTypeName="Entidades.Categoria" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerPorId" TypeName="Daos.DaoSqlServerCategoria" UpdateMethod="Modificar">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="ListadoGridView" PropertyName="SelectedValue" Name="id" Type="Int64"></asp:ControlParameter>
+                </SelectParameters>
+            </asp:ObjectDataSource>
         </div>
     </form>
 </body>
+
 </html>

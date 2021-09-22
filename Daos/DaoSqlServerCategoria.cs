@@ -13,6 +13,7 @@ namespace Daos
     {
         private const string CADENA_CONEXION = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=mf0966;Integrated Security=True";
         private const string SQL_SELECT = @"SELECT * FROM Categorias";
+        private const string SQL_SELECT_ID = SQL_SELECT + @" WHERE Id = @Id";
 
         #region Singleton
         private DaoSqlServerCategoria() { }
@@ -57,7 +58,31 @@ namespace Daos
 
         public Categoria ObtenerPorId(long id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection con = ObtenerConexion())
+            {
+                con.Open();
+
+                IDbCommand com = con.CreateCommand();
+
+                com.CommandText = SQL_SELECT_ID;
+
+                IDbDataParameter parId = com.CreateParameter();
+                parId.ParameterName = "Id";
+                parId.DbType = DbType.Int64;
+                parId.Value = id;
+                com.Parameters.Add(parId);
+
+                IDataReader dr = com.ExecuteReader();
+
+                Categoria categoria = null;
+
+                if (dr.Read())
+                {
+                    categoria = new Categoria((long)dr["Id"], (string)dr["Nombre"]);
+                }
+
+                return categoria;
+            }
         }
         
         public Categoria Insertar(Categoria categoria)
