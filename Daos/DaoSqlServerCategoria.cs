@@ -14,6 +14,7 @@ namespace Daos
         private const string CADENA_CONEXION = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=mf0966;Integrated Security=True";
         private const string SQL_SELECT = @"SELECT * FROM Categorias";
         private const string SQL_SELECT_ID = SQL_SELECT + @" WHERE Id = @Id";
+        private const string SQL_DELETE = "DELETE FROM Categorias WHERE Id = @Id";
 
         #region Singleton
         private DaoSqlServerCategoria() { }
@@ -108,7 +109,27 @@ namespace Daos
         }
         public void Borrar(long id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection con = ObtenerConexion())
+            {
+                con.Open();
+
+                IDbCommand com = con.CreateCommand();
+
+                com.CommandText = SQL_DELETE;
+
+                IDbDataParameter parId = com.CreateParameter();
+                parId.ParameterName = "Id";
+                parId.DbType = DbType.Int64;
+                parId.Value = id;
+                com.Parameters.Add(parId);
+
+                int numeroRegistrosModificados = com.ExecuteNonQuery();
+
+                if(numeroRegistrosModificados == 0)
+                {
+                    throw new DaoException("No se ha encontrado ese Id para borrar " + id);
+                }
+            }
         }
     }
 }
