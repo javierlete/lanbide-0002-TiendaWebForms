@@ -14,8 +14,9 @@ namespace Daos
         private const string CADENA_CONEXION = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=mf0966;Integrated Security=True";
         private const string SQL_SELECT = @"SELECT * FROM Categorias";
         private const string SQL_SELECT_ID = SQL_SELECT + @" WHERE Id = @Id";
-        private const string SQL_UPDATE = "UPDATE Categorias SET Nombre=@Nombre WHERE Id = @Id";
-        private const string SQL_DELETE = "DELETE FROM Categorias WHERE Id = @Id";
+        private const string SQL_INSERT = @"INSERT INTO Categorias (Nombre) VALUES (@Nombre)";
+        private const string SQL_UPDATE = @"UPDATE Categorias SET Nombre=@Nombre WHERE Id = @Id";
+        private const string SQL_DELETE = @"DELETE FROM Categorias WHERE Id = @Id";
 
         #region Singleton
         private DaoSqlServerCategoria() { }
@@ -89,7 +90,24 @@ namespace Daos
         
         public Categoria Insertar(Categoria categoria)
         {
-            throw new NotImplementedException();
+            using (IDbConnection con = ObtenerConexion())
+            {
+                con.Open();
+
+                IDbCommand com = con.CreateCommand();
+
+                com.CommandText = SQL_INSERT;
+
+                IDbDataParameter parNombre = com.CreateParameter();
+                parNombre.ParameterName = "Nombre";
+                parNombre.DbType = DbType.String;
+                parNombre.Value = categoria.Nombre;
+                com.Parameters.Add(parNombre);
+
+                com.ExecuteNonQuery();
+
+                return categoria;
+            }
         }
 
         public Categoria Modificar(Categoria categoria)
