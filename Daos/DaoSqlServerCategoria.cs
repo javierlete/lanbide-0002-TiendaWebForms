@@ -29,7 +29,7 @@ namespace Daos
         }
 
         #endregion
-        
+
         private static SqlConnection ObtenerConexion()
         {
             return new SqlConnection(CADENA_CONEXION);
@@ -39,22 +39,29 @@ namespace Daos
         {
             using (IDbConnection con = ObtenerConexion())
             {
-                con.Open();
-
-                IDbCommand com = con.CreateCommand();
-
-                com.CommandText = SQL_SELECT;
-
-                IDataReader dr = com.ExecuteReader();
-
-                List<Categoria> categorias = new List<Categoria>();
-
-                while(dr.Read())
+                try
                 {
-                    categorias.Add(new Categoria((long)dr["Id"], (string)dr["Nombre"]));
-                }
+                    con.Open();
 
-                return categorias;
+                    IDbCommand com = con.CreateCommand();
+
+                    com.CommandText = SQL_SELECT;
+
+                    IDataReader dr = com.ExecuteReader();
+
+                    List<Categoria> categorias = new List<Categoria>();
+
+                    while (dr.Read())
+                    {
+                        categorias.Add(new Categoria((long)dr["Id"], (string)dr["Nombre"]));
+                    }
+
+                    return categorias;
+                }
+                catch (Exception e)
+                {
+                    throw new DaoException("Error al obtener todos los registros de categorías", e);
+                }
             }
         }
 
@@ -63,50 +70,66 @@ namespace Daos
         {
             using (IDbConnection con = ObtenerConexion())
             {
-                con.Open();
-
-                IDbCommand com = con.CreateCommand();
-
-                com.CommandText = SQL_SELECT_ID;
-
-                IDbDataParameter parId = com.CreateParameter();
-                parId.ParameterName = "Id";
-                parId.DbType = DbType.Int64;
-                parId.Value = id;
-                com.Parameters.Add(parId);
-
-                IDataReader dr = com.ExecuteReader();
-
-                Categoria categoria = null;
-
-                if (dr.Read())
+                try
                 {
-                    categoria = new Categoria((long)dr["Id"], (string)dr["Nombre"]);
+                    con.Open();
+
+                    IDbCommand com = con.CreateCommand();
+
+                    com.CommandText = SQL_SELECT_ID;
+
+                    IDbDataParameter parId = com.CreateParameter();
+                    parId.ParameterName = "Id";
+                    parId.DbType = DbType.Int64;
+                    parId.Value = id;
+                    com.Parameters.Add(parId);
+
+                    IDataReader dr = com.ExecuteReader();
+
+                    Categoria categoria = null;
+
+                    if (dr.Read())
+                    {
+                        categoria = new Categoria((long)dr["Id"], (string)dr["Nombre"]);
+                    }
+
+                    return categoria;
                 }
 
-                return categoria;
+                catch (Exception e)
+                {
+                    throw new DaoException("Error al obtener el registro " + id, e);
+                }
             }
         }
-        
+
         public Categoria Insertar(Categoria categoria)
         {
             using (IDbConnection con = ObtenerConexion())
             {
-                con.Open();
+                try
+                {
+                    con.Open();
 
-                IDbCommand com = con.CreateCommand();
+                    IDbCommand com = con.CreateCommand();
 
-                com.CommandText = SQL_INSERT;
+                    com.CommandText = SQL_INSERT;
 
-                IDbDataParameter parNombre = com.CreateParameter();
-                parNombre.ParameterName = "Nombre";
-                parNombre.DbType = DbType.String;
-                parNombre.Value = categoria.Nombre;
-                com.Parameters.Add(parNombre);
+                    IDbDataParameter parNombre = com.CreateParameter();
+                    parNombre.ParameterName = "Nombre";
+                    parNombre.DbType = DbType.String;
+                    parNombre.Value = categoria.Nombre;
+                    com.Parameters.Add(parNombre);
 
-                com.ExecuteNonQuery();
+                    com.ExecuteNonQuery();
 
-                return categoria;
+                    return categoria;
+                }
+
+                catch (Exception e)
+                {
+                    throw new DaoException("Error al insertar el registro " + categoria.Nombre, e);
+                }
             }
         }
 
@@ -114,25 +137,35 @@ namespace Daos
         {
             using (IDbConnection con = ObtenerConexion())
             {
-                con.Open();
+                int numeroRegistrosModificados;
 
-                IDbCommand com = con.CreateCommand();
+                try
+                {
+                    con.Open();
 
-                com.CommandText = SQL_UPDATE;
+                    IDbCommand com = con.CreateCommand();
 
-                IDbDataParameter parId = com.CreateParameter();
-                parId.ParameterName = "Id";
-                parId.DbType = DbType.Int64;
-                parId.Value = categoria.Id;
-                com.Parameters.Add(parId);
+                    com.CommandText = SQL_UPDATE;
 
-                IDbDataParameter parNombre = com.CreateParameter();
-                parNombre.ParameterName = "Nombre";
-                parNombre.DbType = DbType.String;
-                parNombre.Value = categoria.Nombre;
-                com.Parameters.Add(parNombre);
+                    IDbDataParameter parId = com.CreateParameter();
+                    parId.ParameterName = "Id";
+                    parId.DbType = DbType.Int64;
+                    parId.Value = categoria.Id;
+                    com.Parameters.Add(parId);
 
-                int numeroRegistrosModificados = com.ExecuteNonQuery();
+                    IDbDataParameter parNombre = com.CreateParameter();
+                    parNombre.ParameterName = "Nombre";
+                    parNombre.DbType = DbType.String;
+                    parNombre.Value = categoria.Nombre;
+                    com.Parameters.Add(parNombre);
+
+                    numeroRegistrosModificados = com.ExecuteNonQuery();
+                }
+
+                catch (Exception e)
+                {
+                    throw new DaoException("Error al modificar el registro " + categoria.Id, e);
+                }
 
                 if (numeroRegistrosModificados == 0)
                 {
@@ -158,21 +191,31 @@ namespace Daos
         {
             using (IDbConnection con = ObtenerConexion())
             {
-                con.Open();
+                int numeroRegistrosModificados;
 
-                IDbCommand com = con.CreateCommand();
+                try
+                {
+                    con.Open();
 
-                com.CommandText = SQL_DELETE;
+                    IDbCommand com = con.CreateCommand();
 
-                IDbDataParameter parId = com.CreateParameter();
-                parId.ParameterName = "Id";
-                parId.DbType = DbType.Int64;
-                parId.Value = id;
-                com.Parameters.Add(parId);
+                    com.CommandText = SQL_DELETE;
 
-                int numeroRegistrosModificados = com.ExecuteNonQuery();
+                    IDbDataParameter parId = com.CreateParameter();
+                    parId.ParameterName = "Id";
+                    parId.DbType = DbType.Int64;
+                    parId.Value = id;
+                    com.Parameters.Add(parId);
 
-                if(numeroRegistrosModificados == 0)
+                    numeroRegistrosModificados = com.ExecuteNonQuery();
+                }
+
+                catch (Exception e)
+                {
+                    throw new DaoException("Error al borrar el registro " + id, e);
+                }
+
+                if (numeroRegistrosModificados == 0)
                 {
                     throw new DaoException("No se ha encontrado ese Id para borrar " + id);
                 }
