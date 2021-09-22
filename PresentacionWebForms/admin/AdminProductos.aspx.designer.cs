@@ -42,6 +42,15 @@ namespace PresentacionWebForms.admin
         protected global::System.Web.UI.WebControls.ObjectDataSource ListadoDataSource;
 
         /// <summary>
+        /// Control CategoriaFormView.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FormView CategoriaFormView;
+
+        /// <summary>
         /// Control FormularioDataSource.
         /// </summary>
         /// <remarks>

@@ -15,12 +15,12 @@
                     <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" ShowSelectButton="True"></asp:CommandField>
                 </Columns>
             </asp:GridView>
-            <asp:ObjectDataSource OnObjectCreating="ListadoDataSource_ObjectCreating" runat="server" ID="ListadoDataSource" DataObjectTypeName="Entidades.Categoria" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerTodos" TypeName="Daos.IDaoCategoria" UpdateMethod="Modificar">
+            <asp:ObjectDataSource OnUpdated="RefrescarFormulario" OnObjectCreating="ListadoDataSource_ObjectCreating" runat="server" ID="ListadoDataSource" DataObjectTypeName="Entidades.Categoria" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerTodos" TypeName="Daos.IDaoCategoria" UpdateMethod="Modificar">
                 <DeleteParameters>
                     <asp:Parameter Name="id" Type="Int64"></asp:Parameter>
                 </DeleteParameters>
             </asp:ObjectDataSource>
-            <asp:FormView DataKeyNames="Id" runat="server" DataSourceID="FormularioDataSource">
+            <asp:FormView ID="CategoriaFormView" DataKeyNames="Id" runat="server" DataSourceID="FormularioDataSource">
                 <EditItemTemplate>
                     Id:
                     <asp:TextBox Text='<%# Bind("Id") %>' runat="server" ID="IdTextBox" /><br />
@@ -49,7 +49,7 @@
                     <asp:LinkButton runat="server" Text="Editar" CommandName="Edit" ID="EditButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Eliminar" CommandName="Delete" ID="DeleteButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Nuevo" CommandName="New" ID="NewButton" CausesValidation="False" />
                 </ItemTemplate>
             </asp:FormView>
-            <asp:ObjectDataSource OnObjectCreating="ListadoDataSource_ObjectCreating" runat="server" ID="FormularioDataSource" DataObjectTypeName="Entidades.Categoria" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerPorId" TypeName="Daos.DaoSqlServerCategoria" UpdateMethod="Modificar">
+            <asp:ObjectDataSource OnUpdated="RefrescarListado" OnObjectCreating="ListadoDataSource_ObjectCreating" runat="server" ID="FormularioDataSource" DataObjectTypeName="Entidades.Categoria" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerPorId" TypeName="Daos.DaoSqlServerCategoria" UpdateMethod="Modificar">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="ListadoGridView" PropertyName="SelectedValue" Name="id" Type="Int64"></asp:ControlParameter>
                 </SelectParameters>

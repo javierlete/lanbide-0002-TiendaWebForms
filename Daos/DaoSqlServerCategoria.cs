@@ -14,6 +14,7 @@ namespace Daos
         private const string CADENA_CONEXION = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=mf0966;Integrated Security=True";
         private const string SQL_SELECT = @"SELECT * FROM Categorias";
         private const string SQL_SELECT_ID = SQL_SELECT + @" WHERE Id = @Id";
+        private const string SQL_UPDATE = "UPDATE Categorias SET Nombre=@Nombre WHERE Id = @Id";
         private const string SQL_DELETE = "DELETE FROM Categorias WHERE Id = @Id";
 
         #region Singleton
@@ -93,7 +94,35 @@ namespace Daos
 
         public Categoria Modificar(Categoria categoria)
         {
-            throw new NotImplementedException();
+            using (IDbConnection con = ObtenerConexion())
+            {
+                con.Open();
+
+                IDbCommand com = con.CreateCommand();
+
+                com.CommandText = SQL_UPDATE;
+
+                IDbDataParameter parId = com.CreateParameter();
+                parId.ParameterName = "Id";
+                parId.DbType = DbType.Int64;
+                parId.Value = categoria.Id;
+                com.Parameters.Add(parId);
+
+                IDbDataParameter parNombre = com.CreateParameter();
+                parNombre.ParameterName = "Nombre";
+                parNombre.DbType = DbType.String;
+                parNombre.Value = categoria.Nombre;
+                com.Parameters.Add(parNombre);
+
+                int numeroRegistrosModificados = com.ExecuteNonQuery();
+
+                if (numeroRegistrosModificados == 0)
+                {
+                    throw new DaoException("No se ha encontrado ese Id para modificar " + categoria.Id);
+                }
+
+                return categoria;
+            }
         }
 
         public void Borrar(Categoria categoria)

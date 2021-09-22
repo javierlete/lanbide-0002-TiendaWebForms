@@ -11,12 +11,22 @@ namespace PresentacionWebForms.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void ListadoDataSource_ObjectCreating(object sender, ObjectDataSourceEventArgs e)
         {
             e.ObjectInstance = Daos.DaoSqlServerCategoria.ObtenerDao();
+        }
+
+        protected void RefrescarListado(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            ListadoGridView.DataBind();
+        }
+
+        protected void RefrescarFormulario(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            CategoriaFormView.DataBind();
         }
     }
 }

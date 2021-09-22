@@ -102,6 +102,10 @@
       <Project>{8de91487-d055-4e2b-8fc7-5ceb712f85cb}</Project>
       <Name>Daos</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{d4c88cfb-020e-43cc-baee-93c3da693f78}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
