@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DaoException.cs" />
+    <Compile Include="DaoSqlServerProducto.cs" />
     <Compile Include="DaoSqlServerCategoria.cs" />
+    <Compile Include="IDaoProducto.cs" />
     <Compile Include="IDaoCategoria.cs" />
     <Compile Include="IDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

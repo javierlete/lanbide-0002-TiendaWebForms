@@ -10,6 +10,7 @@ namespace PresentacionWebForms.admin
 {
     public partial class AdminProductos : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -49,6 +50,26 @@ namespace PresentacionWebForms.admin
 
                 e.ExceptionHandled = true;
             }
+        }
+
+        protected void ProductosDataSource_ObjectCreating(object sender, ObjectDataSourceEventArgs e)
+        {
+            e.ObjectInstance = Daos.DaoSqlServerProducto.ObtenerDao();
+        }
+
+        protected void ProductosDataSource_Updated(object sender, ObjectDataSourceStatusEventArgs e)
+        {
+            Debug.Print(e.ReturnValue.ToString());
+        }
+
+        protected override void InitializeCulture()
+        {
+            var clonedCulture = (System.Globalization.CultureInfo)new System.Globalization.CultureInfo("es-ES").Clone();
+
+            clonedCulture.NumberFormat.NumberDecimalSeparator = ".";
+            clonedCulture.NumberFormat.NumberGroupSeparator = "";
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = clonedCulture;
         }
     }
 }

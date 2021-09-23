@@ -47,6 +47,60 @@
                     <asp:ControlParameter ControlID="ListadoGridView" PropertyName="SelectedValue" Name="id" Type="Int64"></asp:ControlParameter>
                 </SelectParameters>
             </asp:ObjectDataSource>
+
+            <asp:GridView DataKeyNames="Id" ID="ProductosGridView" runat="server" DataSourceID="ProductosDataSource" AutoGenerateColumns="False" AllowPaging="True">
+                <Columns>
+                    <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" ShowSelectButton="True"></asp:CommandField>
+                    <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id"></asp:BoundField>
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre"></asp:BoundField>
+                    <asp:BoundField DataField="Precio" DataFormatString="{0:n2}" ApplyFormatInEditMode="true" HeaderText="Precio" SortExpression="Precio"></asp:BoundField>
+                    <asp:BoundField DataField="CategoriaId" HeaderText="Categoria ID" SortExpression="CategoriaId"></asp:BoundField>
+                    <%--<asp:BoundField DataField="Categoria.Nombre" HeaderText="Categoria" SortExpression="Categoria.Nombre"></asp:BoundField>--%>
+                </Columns>
+            </asp:GridView>
+            <asp:ObjectDataSource OnUpdated="ProductosDataSource_Updated" OnObjectCreating="ProductosDataSource_ObjectCreating" runat="server" ID="ProductosDataSource" DataObjectTypeName="Entidades.Producto" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerTodosPorCategoria" TypeName="Daos.DaoSqlServerProducto" UpdateMethod="Modificar">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="ListadoGridView" PropertyName="SelectedValue" Name="id" Type="Int64"></asp:ControlParameter>
+                </SelectParameters>
+            </asp:ObjectDataSource>
+            <asp:FormView ID="ProductoFormView" runat="server" DataSourceID="ProductoDataSource">
+                <EditItemTemplate>
+                    Id:
+                    <asp:TextBox Text='<%# Bind("Id") %>' runat="server" ID="IdTextBox" /><br />
+                    Nombre:
+                    <asp:TextBox Text='<%# Bind("Nombre") %>' runat="server" ID="NombreTextBox" /><br />
+                    Precio:
+                    <asp:TextBox Text='<%# Bind("Precio") %>' runat="server" ID="PrecioTextBox" /><br />
+                    Categoria:
+                    <asp:TextBox Text='<%# Bind("Categoria") %>' runat="server" ID="CategoriaTextBox" /><br />
+                    <asp:LinkButton runat="server" Text="Actualizar" CommandName="Update" ID="UpdateButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancelar" CommandName="Cancel" ID="UpdateCancelButton" CausesValidation="False" />
+                </EditItemTemplate>
+                <InsertItemTemplate>
+                    Nombre:
+                    <asp:TextBox Text='<%# Bind("Nombre") %>' runat="server" ID="NombreTextBox" /><br />
+                    Precio:
+                    <asp:TextBox Text='<%# Bind("Precio") %>' runat="server" ID="PrecioTextBox" /><br />
+                    CategoriaId:
+                    <asp:TextBox Text='<%# Bind("CategoriaId") %>' runat="server" ID="CategoriaTextBox" /><br />
+                    <asp:LinkButton runat="server" Text="Insertar" CommandName="Insert" ID="InsertButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancelar" CommandName="Cancel" ID="InsertCancelButton" CausesValidation="False" />
+                </InsertItemTemplate>
+                <ItemTemplate>
+                    Id:
+                    <asp:Label Text='<%# Bind("Id") %>' runat="server" ID="IdLabel" /><br />
+                    Nombre:
+                    <asp:Label Text='<%# Bind("Nombre") %>' runat="server" ID="NombreLabel" /><br />
+                    Precio:
+                    <asp:Label Text='<%# Bind("Precio") %>' runat="server" ID="PrecioLabel" /><br />
+                    Categoria:
+                    <asp:Label Text='<%# Bind("Categoria") %>' runat="server" ID="CategoriaLabel" /><br />
+                    <asp:LinkButton runat="server" Text="Editar" CommandName="Edit" ID="EditButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Eliminar" CommandName="Delete" ID="DeleteButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Nuevo" CommandName="New" ID="NewButton" CausesValidation="False" />
+                </ItemTemplate>
+            </asp:FormView>
+            <asp:ObjectDataSource OnObjectCreating="ProductosDataSource_ObjectCreating" runat="server" ID="ProductoDataSource" DataObjectTypeName="Entidades.Producto" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerPorId" TypeName="Daos.DaoSqlServerProducto" UpdateMethod="Modificar">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="ProductosGridView" PropertyName="SelectedValue" Name="id" Type="Int64"></asp:ControlParameter>
+                </SelectParameters>
+            </asp:ObjectDataSource>
         </div>
     </form>
 </body>

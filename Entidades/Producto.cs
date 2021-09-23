@@ -11,6 +11,21 @@ namespace Entidades
         public long? Id { get; set; }
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
+        public long? CategoriaId
+        {
+            get
+            {
+                return Categoria.Id;
+            }
+            set
+            {
+                if(Categoria == null)
+                {
+                    Categoria = new Categoria();
+                }
+                Categoria.Id = value;
+            }
+        }
         public Categoria Categoria { get; set; }
 
         public Producto(long? id, string nombre, decimal precio, Categoria categoria)
