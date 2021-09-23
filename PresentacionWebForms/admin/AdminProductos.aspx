@@ -79,7 +79,7 @@
                     Nombre:
                     <asp:TextBox Text='<%# Bind("Nombre") %>' runat="server" ID="NombreTextBox" /><br />
                     Precio:
-                    <asp:TextBox Text='<%# Bind("Precio") %>' runat="server" ID="PrecioTextBox" /><br />
+                    <asp:TextBox Text='<%# Bind("Precio") %>' TextMode="Number" runat="server" ID="PrecioTextBox" /><br />
                     CategoriaId:
                     <asp:TextBox Text='<%# Bind("CategoriaId") %>' runat="server" ID="CategoriaTextBox" /><br />
                     <asp:LinkButton runat="server" Text="Insertar" CommandName="Insert" ID="InsertButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancelar" CommandName="Cancel" ID="InsertCancelButton" CausesValidation="False" />
