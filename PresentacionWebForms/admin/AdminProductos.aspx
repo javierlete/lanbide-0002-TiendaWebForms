@@ -42,7 +42,7 @@
                     <asp:LinkButton runat="server" Text="Editar" CommandName="Edit" ID="EditButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Eliminar" CommandName="Delete" ID="DeleteButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Nuevo" CommandName="New" ID="NewButton" CausesValidation="False" />
                 </ItemTemplate>
             </asp:FormView>
-            <asp:ObjectDataSource OnSelected="GestionarExcepciones" OnInserted="RefrescarListado" OnUpdated="RefrescarListado" OnDeleted="RefrescarListado" OnObjectCreating="ListadoDataSource_ObjectCreating" runat="server" ID="FormularioDataSource" DataObjectTypeName="Entidades.Categoria" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerPorId" TypeName="Daos.DaoSqlServerCategoria" UpdateMethod="Modificar">
+            <asp:ObjectDataSource OnSelected="GestionarExcepciones" OnInserted="RefrescarListado" OnUpdated="RefrescarListado" OnDeleted="RefrescarListado" OnObjectCreating="ListadoDataSource_ObjectCreating" runat="server" ID="FormularioDataSource" DataObjectTypeName="Entidades.Categoria" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerPorId" TypeName="Daos.IDaoCategoria" UpdateMethod="Modificar">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="ListadoGridView" PropertyName="SelectedValue" Name="id" Type="Int64"></asp:ControlParameter>
                 </SelectParameters>
