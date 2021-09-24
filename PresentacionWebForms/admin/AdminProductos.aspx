@@ -1,16 +1,16 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminProductos.aspx.cs" Inherits="PresentacionWebForms.admin.AdminProductos" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminProductos.aspx.cs" Inherits="PresentacionWebForms.admin.AdminProductos" EnableViewState="true" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Label ID="MensajeLabel" runat="server" Text=""></asp:Label>
+            <asp:Label ID="MensajeLabel" runat="server"></asp:Label>
             <asp:GridView DataKeyNames="Id" ID="ListadoGridView" runat="server" DataSourceID="ListadoDataSource" AllowPaging="True">
                 <Columns>
                     <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" ShowSelectButton="True"></asp:CommandField>
@@ -32,6 +32,8 @@
                 <InsertItemTemplate>
                     Nombre:
                     <asp:TextBox Text='<%# Bind("Nombre") %>' runat="server" ID="NombreTextBox" /><br />
+                    <asp:RegularExpressionValidator Display="Dynamic" ControlToValidate="NombreTextBox" ID="NombreRegularExpressionValidator" runat="server" ErrorMessage="La categoría tiene que tener 3 o más caracteres" ValidationExpression="\w{3,}"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator Display="Dynamic" ControlToValidate="NombreTextBox" ID="NombreRequiredValidator" runat="server" ErrorMessage="Es obligatorio rellenar algún nombre"></asp:RequiredFieldValidator><br />
                     <asp:LinkButton runat="server" Text="Insertar" CommandName="Insert" ID="InsertButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancelar" CommandName="Cancel" ID="InsertCancelButton" CausesValidation="False" />
                 </InsertItemTemplate>
                 <ItemTemplate>

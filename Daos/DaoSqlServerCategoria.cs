@@ -128,7 +128,24 @@ namespace Daos
 
                 catch (Exception e)
                 {
-                    throw new DaoException("Error al insertar el registro " + categoria.Nombre, e);
+                    SqlException se = e as SqlException;
+
+                    string texto = "Error al insertar el registro " + categoria.Nombre;
+
+                    if (se != null)
+                    {
+                        switch (se.Number)
+                        {
+                            case 2601:
+                                texto = "Ese nombre ya se está utilizando";
+                                break;
+                            case 2628:
+                                texto = "El texto supera la capacidad del campo";
+                                break;
+                        }
+                    }
+
+                    throw new DaoException(texto, e);
                 }
             }
         }
