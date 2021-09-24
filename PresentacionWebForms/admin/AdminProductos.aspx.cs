@@ -48,6 +48,8 @@ namespace PresentacionWebForms.admin
 
                 Debug.WriteLine(e.Exception);
 
+                Trace.Warn("DAO", "Excepción del DAO", e.Exception);
+
                 e.ExceptionHandled = true;
             }
         }
