@@ -72,7 +72,7 @@
                     Precio:
                     <asp:TextBox Text='<%# Bind("Precio") %>' runat="server" ID="PrecioTextBox" /><br />
                     Categoria:
-                    <asp:TextBox Text='<%# Bind("Categoria") %>' runat="server" ID="CategoriaTextBox" /><br />
+                    <asp:DropDownList ID="CategoriaDropDownList" SelectedValue='<%# Bind("CategoriaId") %>' runat="server" DataSourceID="ListadoDataSource" DataTextField="Nombre" DataValueField="Id"></asp:DropDownList>
                     <asp:LinkButton runat="server" Text="Actualizar" CommandName="Update" ID="UpdateButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancelar" CommandName="Cancel" ID="UpdateCancelButton" CausesValidation="False" />
                 </EditItemTemplate>
                 <InsertItemTemplate>
