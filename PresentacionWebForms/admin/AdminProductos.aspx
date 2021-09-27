@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminProductos.aspx.cs" Inherits="PresentacionWebForms.admin.AdminProductos" EnableViewState="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminProductos.aspx.cs" Inherits="PresentacionWebForms.admin.AdminProductos" EnableViewState="false" %>
 
 <!DOCTYPE html>
 
@@ -21,6 +21,9 @@
                     <asp:Parameter Name="id" Type="Int64"></asp:Parameter>
                 </DeleteParameters>
             </asp:ObjectDataSource>
+
+            <asp:Button OnClick="NuevoButton_Click" ID="NuevoButton" runat="server" Text="Nueva categoría" />
+
             <asp:FormView ID="CategoriaFormView" DataKeyNames="Id" runat="server" DataSourceID="FormularioDataSource">
                 <EditItemTemplate>
                     Id:
@@ -56,7 +59,7 @@
                     <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id"></asp:BoundField>
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre"></asp:BoundField>
                     <asp:BoundField DataField="Precio" DataFormatString="{0:n2}" ApplyFormatInEditMode="true" HeaderText="Precio" SortExpression="Precio"></asp:BoundField>
-                    <asp:BoundField DataField="CategoriaId" HeaderText="Categoria ID" SortExpression="CategoriaId"></asp:BoundField>
+                    <%--<asp:BoundField DataField="CategoriaId" HeaderText="Categoria ID" SortExpression="CategoriaId"></asp:BoundField>--%>
                     <%--<asp:BoundField DataField="Categoria.Nombre" HeaderText="Categoria" SortExpression="Categoria.Nombre"></asp:BoundField>--%>
                 </Columns>
             </asp:GridView>
@@ -65,6 +68,9 @@
                     <asp:ControlParameter ControlID="ListadoGridView" PropertyName="SelectedValue" Name="id" Type="Int64"></asp:ControlParameter>
                 </SelectParameters>
             </asp:ObjectDataSource>
+
+            <asp:Button OnClick="NuevoProductoButton_Click" ID="NuevoProductoButton" runat="server" Text="Nuevo producto" />
+
             <asp:FormView ID="ProductoFormView" runat="server" DataSourceID="ProductoDataSource">
                 <EditItemTemplate>
                     Id:
@@ -82,8 +88,8 @@
                     <asp:TextBox Text='<%# Bind("Nombre") %>' runat="server" ID="NombreTextBox" /><br />
                     Precio:
                     <asp:TextBox Text='<%# Bind("Precio") %>' TextMode="Number" runat="server" ID="PrecioTextBox" /><br />
-                    CategoriaId:
-                    <asp:TextBox Text='<%# Bind("CategoriaId") %>' runat="server" ID="CategoriaTextBox" /><br />
+                    Categoria:
+                    <asp:DropDownList ID="CategoriaDropDownList" SelectedValue='<%# Bind("CategoriaId") %>' runat="server" DataSourceID="ListadoDataSource" DataTextField="Nombre" DataValueField="Id"></asp:DropDownList>
                     <asp:LinkButton runat="server" Text="Insertar" CommandName="Insert" ID="InsertButton" CausesValidation="True" />&nbsp;<asp:LinkButton runat="server" Text="Cancelar" CommandName="Cancel" ID="InsertCancelButton" CausesValidation="False" />
                 </InsertItemTemplate>
                 <ItemTemplate>
@@ -93,8 +99,8 @@
                     <asp:Label Text='<%# Bind("Nombre") %>' runat="server" ID="NombreLabel" /><br />
                     Precio:
                     <asp:Label Text='<%# Bind("Precio") %>' runat="server" ID="PrecioLabel" /><br />
-                    Categoria:
-                    <asp:Label Text='<%# Bind("Categoria") %>' runat="server" ID="CategoriaLabel" /><br />
+                    <%--Categoria:
+                    <asp:Label Text='<%# Bind("Categoria") %>' runat="server" ID="CategoriaLabel" /><br />--%>
                     <asp:LinkButton runat="server" Text="Editar" CommandName="Edit" ID="EditButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Eliminar" CommandName="Delete" ID="DeleteButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Nuevo" CommandName="New" ID="NewButton" CausesValidation="False" />
                 </ItemTemplate>
             </asp:FormView>

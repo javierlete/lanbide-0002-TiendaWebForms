@@ -73,5 +73,15 @@ namespace PresentacionWebForms.admin
 
             System.Threading.Thread.CurrentThread.CurrentCulture = clonedCulture;
         }
+
+        protected void NuevoButton_Click(object sender, EventArgs e)
+        {
+            CategoriaFormView.ChangeMode(FormViewMode.Insert);
+        }
+
+        protected void NuevoProductoButton_Click(object sender, EventArgs e)
+        {
+            ProductoFormView.ChangeMode(FormViewMode.Insert);
+        }
     }
 }
