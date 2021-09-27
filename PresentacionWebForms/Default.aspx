@@ -16,6 +16,7 @@
                             <p class="card-text"><%# Eval("Categoria.Nombre") %></p>
                         </div>
                         <div class="card-footer">
+                            <asp:Button OnClick="CarritoButton_Click" CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-primary" ID="CarritoButton" runat="server" Text="Añadir al carrito" />
                             <small class="text-muted"><%# Eval("Precio", "{0:c}") %></small>
                         </div>
                     </div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,10 @@ namespace PresentacionWebForms
 {
     public class Global : System.Web.HttpApplication
     {
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            Session["carrito"] = new List<Producto>();
+        }
         protected void Application_Start(object sender, EventArgs e)
         {
             string JQueryVer = "3.6.0";

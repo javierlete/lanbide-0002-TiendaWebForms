@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\AdminProductos.aspx" />
+    <Content Include="Carrito.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -128,6 +129,13 @@
     </Compile>
     <Compile Include="admin\AdminProductos.aspx.designer.cs">
       <DependentUpon>AdminProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Carrito.aspx.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Carrito.aspx.designer.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
