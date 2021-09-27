@@ -59,7 +59,7 @@ namespace Daos
 
                     while (dr.Read())
                     {
-                        categoriaId = (long)dr["c.Id"];
+                        categoriaId = (long)dr["cId"];
 
                         if (categorias.ContainsKey(categoriaId))
                         {
@@ -67,10 +67,10 @@ namespace Daos
                         }
                         else
                         {
-                            categoria = new Categoria((long)dr["c.Id"], (string)dr["c.Nombre"]);
+                            categoria = new Categoria((long)dr["cId"], (string)dr["cNombre"]);
                         }
 
-                        producto = new Producto((long)dr["p.Id"], (string)dr["p.Nombre"], (decimal)dr["p.Precio"], categoria);
+                        producto = new Producto((long)dr["Id"], (string)dr["Nombre"], (decimal)dr["Precio"], categoria);
                         productos.Add(producto);
                     }
 
