@@ -28,8 +28,8 @@ namespace PresentacionWebForms
             long id = long.Parse(b.CommandArgument);
             Producto producto = dao.ObtenerPorId(id);
 
-            List<Producto> carrito = Session["carrito"] as List<Producto>;
-            carrito.Add(producto);
+            Entidades.Carrito carrito = Session["carrito"] as Entidades.Carrito;
+            carrito.Agregar(producto);
 
             Response.Redirect("~/Carrito.aspx");
         }

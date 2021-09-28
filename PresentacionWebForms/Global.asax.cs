@@ -13,7 +13,7 @@ namespace PresentacionWebForms
     {
         protected void Session_Start(object sender, EventArgs e)
         {
-            Session["carrito"] = new List<Producto>();
+            Session["carrito"] = new Entidades.Carrito();
         }
         protected void Application_Start(object sender, EventArgs e)
         {

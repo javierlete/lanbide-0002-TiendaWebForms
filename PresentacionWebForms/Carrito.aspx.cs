@@ -10,11 +10,13 @@ namespace PresentacionWebForms
 {
     public partial class Carrito : System.Web.UI.Page
     {
+        public Entidades.Carrito Modelo => Session["carrito"] as Entidades.Carrito;
         protected void Page_Load(object sender, EventArgs e)
         {
-            List<Producto> productos = Session["carrito"] as List<Producto>;
-            ProductosGridView.DataSource = productos;
+            ProductosGridView.DataSource = Modelo.Lineas;
             ProductosGridView.DataBind();
+
+            TotalConIvaLabel.Text = Modelo.TotalConIva.ToString("c");
         }
     }
 }
