@@ -11,7 +11,7 @@ namespace PresentacionWebForms
 {
     public partial class Default : System.Web.UI.Page
     {
-        private static IDaoProducto dao = Daos.DaoSqlServerProducto.ObtenerDao();
+        private static readonly IDaoProducto dao = Daos.DaoSqlServerProducto.ObtenerDao();
         protected void Page_Load(object sender, EventArgs e)
         {
 
