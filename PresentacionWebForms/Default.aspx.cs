@@ -2,6 +2,7 @@
 using Entidades;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -28,10 +29,52 @@ namespace PresentacionWebForms
             long id = long.Parse(b.CommandArgument);
             Producto producto = dao.ObtenerPorId(id);
 
+            TextBox cantidadTextBox = (TextBox)b.Parent.FindControl("CantidadTextBox");
+            int cantidad = int.Parse(cantidadTextBox.Text);
+
             Entidades.Carrito carrito = Session["carrito"] as Entidades.Carrito;
-            carrito.Agregar(producto);
+            carrito.Agregar(producto, cantidad);
 
             Response.Redirect("~/Carrito.aspx");
+        }
+
+        protected void Cantidad_Click(object sender, EventArgs e)
+        {
+            LinkButton b = (LinkButton)sender;
+            Debug.Print(b.CommandName);
+
+            TextBox cantidadTextBox = (TextBox)b.Parent.FindControl("CantidadTextBox");
+            Debug.Print(cantidadTextBox.Text);
+
+            int cantidad = int.Parse(cantidadTextBox.Text);
+
+            switch (b.CommandName)
+            {
+                case "menos": cantidad--; break;
+                case "mas": cantidad++; break;
+            }
+
+            cantidadTextBox.Text = cantidad.ToString();
+        }
+
+        protected void ProductosRepeater_ItemCreated(object sender, RepeaterItemEventArgs e)
+        {
+            ScriptManager scriptMan = ScriptManager.GetCurrent(this);
+            
+            LinkButton menos = e.Item.FindControl("MenosButton") as LinkButton;
+            LinkButton mas = e.Item.FindControl("MasButton") as LinkButton;
+            
+            if (menos != null)
+            {
+                menos.Click += Cantidad_Click;
+                scriptMan.RegisterAsyncPostBackControl(menos);
+            }
+
+            if (mas != null)
+            {
+                mas.Click += Cantidad_Click;
+                scriptMan.RegisterAsyncPostBackControl(mas);
+            }
         }
     }
 }
