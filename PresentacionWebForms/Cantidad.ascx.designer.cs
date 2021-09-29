@@ -11,43 +11,43 @@ namespace PresentacionWebForms
 {
 
 
-    public partial class Usuario
+    public partial class Cantidad
     {
 
         /// <summary>
-        /// Control head.
+        /// Control MenosButton.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.LinkButton MenosButton;
 
         /// <summary>
-        /// Control form1.
+        /// Control CantidadTextBox.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox CantidadTextBox;
 
         /// <summary>
-        /// Control ScriptManager1.
+        /// Control MasButton.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.LinkButton MasButton;
 
         /// <summary>
-        /// Control main.
+        /// Control CantidadTextBoxRangeValidator.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder main;
+        protected global::System.Web.UI.WebControls.RangeValidator CantidadTextBoxRangeValidator;
     }
 }

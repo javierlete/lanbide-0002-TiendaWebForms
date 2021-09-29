@@ -25,17 +25,20 @@ namespace PresentacionWebForms
 
         protected void CarritoButton_Click(object sender, EventArgs e)
         {
-            Button b = sender as Button;
-            long id = long.Parse(b.CommandArgument);
-            Producto producto = dao.ObtenerPorId(id);
+            if (IsValid)
+            {
+                Button b = sender as Button;
+                long id = long.Parse(b.CommandArgument);
+                Producto producto = dao.ObtenerPorId(id);
 
-            TextBox cantidadTextBox = (TextBox)b.Parent.FindControl("CantidadTextBox");
-            int cantidad = int.Parse(cantidadTextBox.Text);
+                Cantidad cantidad = (Cantidad)b.Parent.FindControl("Cantidad");
+                int unidades = cantidad.Unidades;
 
-            Entidades.Carrito carrito = Session["carrito"] as Entidades.Carrito;
-            carrito.Agregar(producto, cantidad);
+                Entidades.Carrito carrito = Session["carrito"] as Entidades.Carrito;
+                carrito.Agregar(producto, unidades);
 
-            Response.Redirect("~/Carrito.aspx");
+                Response.Redirect("~/Carrito.aspx");
+            }
         }
 
         protected void Cantidad_Click(object sender, EventArgs e)

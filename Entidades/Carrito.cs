@@ -49,9 +49,19 @@ namespace Entidades
             if (lineas.ContainsKey(id))
             {
                 lineas[id].Cantidad += cantidad;
+                
+                if (lineas[id].Cantidad <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("No admitimos valores 0 o inferiores para la cantidad");
+                }
             }
             else
             {
+                if (cantidad <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("No admitimos valores 0 o inferiores para la cantidad");
+                }
+
                 lineas.Add(id, new Linea(producto, cantidad));
             }
         }
