@@ -55,8 +55,14 @@ namespace Entidades
                 lineas.Add(id, new Linea(producto, cantidad));
             }
         }
+
+        public void Eliminar(long id)
+        {
+            lineas.Remove(id);
+        }
         public class Linea
         {
+            public long Id => Producto.Id.Value;
             public Producto Producto { get; set; }
             public int Cantidad { get; set; }
             public decimal Total => Producto.Precio * Cantidad;

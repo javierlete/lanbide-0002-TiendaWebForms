@@ -2,7 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
-    <asp:GridView ShowFooter="true" AutoGenerateColumns="false" CssClass="table table-bordered table-hover table-striped" ID="ProductosGridView" runat="server">
+    <asp:GridView DataKeyNames="Id" OnRowDeleting="ProductosGridView_RowDeleting" ShowFooter="true" AutoGenerateColumns="false" CssClass="table table-bordered table-hover table-striped" ID="ProductosGridView" runat="server">
+        <Columns>
+            <asp:CommandField ControlStyle-CssClass="btn btn-danger" ShowDeleteButton="True"></asp:CommandField>
+        </Columns>
+
         <HeaderStyle CssClass="table-dark" />
         <Columns>
             <asp:BoundField DataField="Cantidad" HeaderText="Cantidad"></asp:BoundField>
