@@ -14,6 +14,8 @@ namespace PresentacionWebForms
         public Entidades.Carrito Modelo => Session["carrito"] as Entidades.Carrito;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Cantidad.Click += Cantidad_Click;
+
             ProductosGridView.DataSource = Modelo.Lineas;
             ProductosGridView.DataBind();
 
@@ -26,6 +28,20 @@ namespace PresentacionWebForms
             (Session["carrito"] as Entidades.Carrito).Eliminar(id);
             ProductosGridView.DataBind();
             TotalConIvaLabel.Text = Modelo.TotalConIva.ToString("c");
+        }
+
+        protected void Cantidad_Click(object sender, EventArgs e)
+        {
+            Debug.Print(sender.ToString());
+            Debug.Print(e?.ToString());
+
+            Cantidad cantidad = (Cantidad)sender;
+
+            Modelo[cantidad.IdRelacionado.Value].Cantidad = cantidad.Unidades;
+            ProductosGridView.DataBind();
+            TotalConIvaLabel.Text = Modelo.TotalConIva.ToString("c");
+
+            Response.Redirect("~/Carrito.aspx");
         }
     }
 }

@@ -10,7 +10,19 @@ namespace PresentacionWebForms
 {
     public partial class Cantidad : System.Web.UI.UserControl
     {
-        public int Unidades => int.Parse(CantidadTextBox.Text);
+        public event EventHandler Click;
+        public bool Inline { get; set; } = false;
+        public long? IdRelacionado { get; set; }
+        public bool VisibleNumero
+        {
+            get { return CantidadTextBox.Visible; }
+            set { CantidadTextBox.Visible = value; }
+        }
+        public int Unidades
+        {
+            get { return int.Parse(CantidadTextBox.Text); }
+            set { CantidadTextBox.Text = value.ToString(); }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             ScriptManager scriptMan = ScriptManager.GetCurrent(Page);
@@ -46,6 +58,8 @@ namespace PresentacionWebForms
             CantidadTextBox.Text = cantidad.ToString();
 
             CantidadTextBoxRangeValidator.Validate();
+
+            Click?.Invoke(this, null);
         }
     }
 }

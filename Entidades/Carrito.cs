@@ -11,6 +11,7 @@ namespace Entidades
         private const decimal IVA = 0.21m;
         private readonly Dictionary<long, Linea> lineas = new Dictionary<long, Linea>();
         public IEnumerable<Linea> Lineas => lineas.Values;
+        public Linea this[long id] => lineas[id];
         public decimal Total
         {
             get
