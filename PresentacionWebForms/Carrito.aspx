@@ -25,4 +25,5 @@
 
     <asp:Label ID="TotalConIvaLabel" runat="server" />
     <asp:Button CssClass="btn btn-primary" PostBackUrl="~/Default.aspx" runat="server" Text="Seguir comprando" />
+    <asp:Button ID="Facturar" CssClass="btn btn-primary" OnClick="Facturar_Click" runat="server" Text="Facturar" />
 </asp:Content>

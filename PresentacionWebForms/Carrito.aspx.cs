@@ -1,4 +1,5 @@
-﻿using Entidades;
+﻿using Daos;
+using Entidades;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,6 +12,7 @@ namespace PresentacionWebForms
 {
     public partial class Carrito : System.Web.UI.Page
     {
+        private IDaoFactura dao = new DaoSqlServerFactura();
         public Entidades.Carrito Modelo => Session["carrito"] as Entidades.Carrito;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,6 +44,31 @@ namespace PresentacionWebForms
             TotalConIvaLabel.Text = Modelo.TotalConIva.ToString("c");
 
             Response.Redirect("~/Carrito.aspx");
+        }
+
+        protected void Facturar_Click(object sender, EventArgs e)
+        {
+            if(Modelo.Lineas.Count() == 0)
+            {
+                // TODO: Mensaje al usuario
+                Response.Redirect("~/Default.aspx");
+                return;
+            }
+
+            Cliente cliente = (Cliente)Session["cliente"];
+
+            if(cliente == null)
+            {
+                // TODO: Mensaje al usuario
+                Response.Redirect("~/usuarios/AltaCliente.aspx");
+                return;
+            }
+
+            Factura factura = new Factura(null, null, DateTime.Today, cliente, Modelo);
+
+            dao.Insertar(factura);
+
+            Response.Redirect("~/clientes/Factura.aspx?id=" + factura.Id);
         }
     }
 }
