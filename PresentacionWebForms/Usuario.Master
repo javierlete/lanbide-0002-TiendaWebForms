@@ -29,6 +29,15 @@
                             <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Carrito.aspx">Carrito</asp:HyperLink>
                         </li>
                     </ul>
+                    <asp:Label ID="UsuarioLabel" CssClass="navbar-text" runat="server"></asp:Label>
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li id="LoginLi" runat="server" class="nav-item">
+                            <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Login.aspx">Login</asp:HyperLink>
+                        </li>
+                        <li id="LogoutLi" runat="server" class="nav-item">
+                            <asp:LinkButton ID="Logout" OnClick="Logout_Click" runat="server" CssClass="nav-link">Logout</asp:LinkButton>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
