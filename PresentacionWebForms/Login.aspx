@@ -21,4 +21,6 @@
     <button OnServerClick="Login_Click" data-nombre="Login" runat="server" id="LoginButton" type="submit" class="btn btn-primary">Login</button>
    
     <button OnServerClick="Login_Click" data-nombre="Alta" runat="server" id="AltaButton" type="submit" class="btn btn-outline-primary">Alta</button>
+
+    <asp:Label ID="ErrorLabel" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 </asp:Content>

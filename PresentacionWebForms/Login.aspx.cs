@@ -15,7 +15,13 @@ namespace PresentacionWebForms
         private IDaoUsuario dao = DaoSqlServerUsuario.ObtenerDao();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(Session["error"] != null)
+            {
+                ErrorLabel.Text = (string)Session["error"];
+                ErrorLabel.Visible = true;
 
+                Session.Remove("error");
+            }
         }
 
         protected void Login_Click(object sender, EventArgs e)
@@ -40,6 +46,7 @@ namespace PresentacionWebForms
 
                     if(usuarioVerificado == null)
                     {
+                        Session["error"] = "El usuario o la contraseña son incorrectos";
                         FormsAuthentication.RedirectToLoginPage();
                         return;
                     }
