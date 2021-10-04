@@ -36,9 +36,9 @@ namespace PresentacionWebForms
                     usuarioVerificado = dao.Insertar(usuario);
                     break;
                 case "Login": 
-                     usuarioVerificado = dao.ObtenerPorEmail(usuario.Email); 
+                     usuarioVerificado = dao.VerificarUsuario(usuario); 
 
-                    if(usuarioVerificado == null || usuarioVerificado.Password != usuario.Password)
+                    if(usuarioVerificado == null)
                     {
                         FormsAuthentication.RedirectToLoginPage();
                         return;
@@ -49,6 +49,7 @@ namespace PresentacionWebForms
                     throw new ArgumentException("No se reconoce el comando " + comando);
             }
 
+            Session["usuario"] = usuarioVerificado;
             FormsAuthentication.RedirectFromLoginPage(usuarioVerificado.Email, false);
         }
     }

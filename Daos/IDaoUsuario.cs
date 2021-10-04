@@ -11,6 +11,7 @@ namespace Daos
     {
         new IEnumerable<Usuario> ObtenerTodos();
         Usuario ObtenerPorEmail(string email);
+        Usuario VerificarUsuario(Usuario usuario);
         new Usuario ObtenerPorId(long id);
         new Usuario Insertar(Usuario usuario);
         new Usuario Modificar(Usuario usuario);

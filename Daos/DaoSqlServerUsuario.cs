@@ -12,6 +12,7 @@ namespace Daos
     public class DaoSqlServerUsuario : IDaoUsuario
     {
         private const string CADENA_CONEXION = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=mf0966;Integrated Security=True";
+        private const string SQL_SELECT_BY_EMAIL = "SELECT * FROM Usuarios WHERE Email=@Email";
         private const string SQL_INSERT = @"INSERT INTO Usuarios (Email, Password) VALUES (@Email, @Password)";
 
         #region Singleton
@@ -82,7 +83,52 @@ namespace Daos
 
         public Usuario ObtenerPorEmail(string email)
         {
-            throw new NotImplementedException();
+            using (IDbConnection con = ObtenerConexion())
+            {
+                try
+                {
+                    con.Open();
+
+                    IDbCommand com = con.CreateCommand();
+
+                    com.CommandText = SQL_SELECT_BY_EMAIL;
+
+                    IDbDataParameter parEmail = com.CreateParameter();
+                    parEmail.ParameterName = "Email";
+                    parEmail.DbType = DbType.String;
+                    parEmail.Value = email;
+                    com.Parameters.Add(parEmail);
+
+                    IDataReader dr = com.ExecuteReader();
+
+                    Usuario usuario = null;
+
+                    if (dr.Read())
+                    {
+                        usuario = new Usuario(dr["Id"] as long?, dr["Email"] as string, dr["Password"] as string);
+                    }
+
+                    return usuario;
+                }
+
+                catch (Exception e)
+                {
+                    throw new DaoException("Error al buscar por email " + email, e);
+                }
+            }
+        }
+
+        // TODO: Debería estar en una lógica de negocio
+        public Usuario VerificarUsuario(Usuario usuario)
+        {
+            Usuario usuarioBdd = ObtenerPorEmail(usuario.Email);
+
+            if(usuarioBdd != null && BCrypt.Net.BCrypt.Verify(usuario.Password, usuarioBdd.Password))
+            {
+                return usuarioBdd;
+            }
+
+            return null;
         }
 
         public Usuario ObtenerPorId(long id)
