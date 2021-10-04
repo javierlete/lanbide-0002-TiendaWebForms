@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -55,6 +56,14 @@ namespace PresentacionWebForms
                 return;
             }
 
+            Entidades.Usuario usuario = (Entidades.Usuario)Session["usuario"];
+
+            if(usuario == null)
+            {
+                FormsAuthentication.RedirectToLoginPage();
+                return;
+            }
+            
             Cliente cliente = (Cliente)Session["cliente"];
 
             if(cliente == null)

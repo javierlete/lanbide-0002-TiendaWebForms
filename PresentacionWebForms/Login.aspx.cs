@@ -1,4 +1,5 @@
 ﻿using Daos;
+using Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,12 @@ namespace PresentacionWebForms
                     throw new ArgumentException("No se reconoce el comando " + comando);
             }
 
+            IDaoCliente daoCliente = DaoSqlServerCliente.ObtenerDao();
+            Cliente cliente = daoCliente.ObtenerPorId(usuarioVerificado.Id.Value);
+
             Session["usuario"] = usuarioVerificado;
+            Session["cliente"] = cliente;
+
             FormsAuthentication.RedirectFromLoginPage(usuarioVerificado.Email, false);
         }
     }
