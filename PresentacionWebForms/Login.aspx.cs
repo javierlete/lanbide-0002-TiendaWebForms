@@ -12,7 +12,7 @@ namespace PresentacionWebForms
 {
     public partial class Login : System.Web.UI.Page
     {
-        private IDaoUsuario dao = DaoSqlServerUsuario.ObtenerDao();
+        private readonly IDaoUsuario dao = DaoSqlServerUsuario.ObtenerDao();
         protected void Page_Load(object sender, EventArgs e)
         {
             if(Session["error"] != null)
