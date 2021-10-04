@@ -13,7 +13,7 @@ namespace PresentacionWebForms
 {
     public partial class Carrito : System.Web.UI.Page
     {
-        private IDaoFactura dao = new DaoSqlServerFactura();
+        private IDaoFactura dao = DaoSqlServerFactura.ObtenerDao();
         public Entidades.Carrito Modelo => Session["carrito"] as Entidades.Carrito;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -74,6 +74,8 @@ namespace PresentacionWebForms
             }
 
             Factura factura = new Factura(null, null, DateTime.Today, cliente, Modelo);
+
+            factura.Carrito = Session["carrito"] as Entidades.Carrito;
 
             dao.Insertar(factura);
 

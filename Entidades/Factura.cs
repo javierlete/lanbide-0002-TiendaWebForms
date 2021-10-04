@@ -20,7 +20,7 @@ namespace Entidades
             Numero = numero;
             Fecha = fecha;
             Cliente = cliente ?? throw new ArgumentNullException(nameof(cliente));
-            Carrito = carrito ?? throw new ArgumentNullException(nameof(carrito));
+            Carrito = carrito;
         }
 
         public override bool Equals(object obj)

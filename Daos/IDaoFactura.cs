@@ -9,6 +9,7 @@ namespace Daos
 {
     public interface IDaoFactura: IDao<Factura>
     {
+        string ObtenerSiguienteNumeroFactura();
         new IEnumerable<Factura> ObtenerTodos();
         new Factura ObtenerPorId(long id);
         new Factura Insertar(Factura factura);
