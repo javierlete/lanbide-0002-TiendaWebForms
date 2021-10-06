@@ -14,12 +14,12 @@ namespace Daos
     {
         private static readonly string CADENA_CONEXION = ConfigurationManager.AppSettings["CadenaConexion"];
         private const string SQL_SELECT_BY_EMAIL = "SELECT * FROM Usuarios WHERE Email=@Email";
-        private const string SQL_INSERT = @"INSERT INTO Usuarios (Email, Password) VALUES (@Email, @Password)";
+        private const string SQL_INSERT = @"INSERT INTO Usuarios (Email, Password) OUTPUT INSERTED.ID  VALUES (@Email, @Password)";
 
         #region Singleton
         private DaoSqlServerUsuario() { }
 
-        private static DaoSqlServerUsuario dao = new DaoSqlServerUsuario();
+        private static readonly DaoSqlServerUsuario dao = new DaoSqlServerUsuario();
 
         public static DaoSqlServerUsuario ObtenerDao()
         {
@@ -65,7 +65,7 @@ namespace Daos
                     parPassword.Value = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
                     com.Parameters.Add(parPassword);
 
-                    com.ExecuteNonQuery();
+                    usuario.Id = (long)com.ExecuteScalar();
 
                     return usuario;
                 }
