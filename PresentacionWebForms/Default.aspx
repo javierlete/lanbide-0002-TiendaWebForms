@@ -9,7 +9,7 @@
     <h1>Tienda</h1>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
-        <asp:Repeater OnItemCreated="ProductosRepeater_ItemCreated" ID="ProductosRepeater" runat="server" DataSourceID="ProductosDataSource">
+        <asp:Repeater ID="ProductosRepeater" runat="server" DataSourceID="ProductosDataSource">
             <ItemTemplate>
                 <div class="col">
                     <div class="card h-100">
@@ -28,6 +28,6 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-        <asp:ObjectDataSource OnObjectCreating="ProductosDataSource_ObjectCreating" runat="server" ID="ProductosDataSource" DataObjectTypeName="Entidades.Producto" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerTodos" TypeName="Daos.DaoSqlServerProducto" UpdateMethod="Modificar"></asp:ObjectDataSource>
+        <asp:ObjectDataSource OnObjectCreating="ProductosDataSource_ObjectCreating" runat="server" ID="ProductosDataSource" DataObjectTypeName="Entidades.Producto" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerTodos" TypeName="Daos.IDaoProducto" UpdateMethod="Modificar"></asp:ObjectDataSource>
     </div>
 </asp:Content>

@@ -15,7 +15,7 @@ namespace PresentacionWebForms.clientes
         {
             long id = long.Parse(Request["id"]);
 
-            factura = Daos.DaoSqlServerFactura.ObtenerDao().ObtenerPorId(id);
+            factura = Global.daoFactura.ObtenerPorId(id);
 
             NumeroFactura.InnerText = factura.Numero;
 
@@ -23,10 +23,6 @@ namespace PresentacionWebForms.clientes
 
             ProductosGridView.DataSource = factura.Carrito.Lineas;
             ProductosGridView.DataBind();
-
-            //ProductosGridView.ro
-
-            //TotalConIvaLabel.Text = factura.Carrito.TotalConIva.ToString("c");
         }
 
         protected void ProductosGridView_RowDataBound(Object sender, GridViewRowEventArgs e)

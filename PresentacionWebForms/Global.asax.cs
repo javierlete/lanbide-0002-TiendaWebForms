@@ -1,4 +1,5 @@
-﻿using Entidades;
+﻿using Daos;
+using Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,12 @@ namespace PresentacionWebForms
 {
     public class Global : System.Web.HttpApplication
     {
+        public static readonly IDaoProducto daoProducto = DaoSqlServerProducto.ObtenerDao();
+        public static readonly IDaoCategoria daoCategoria = DaoSqlServerCategoria.ObtenerDao();
+        public static readonly IDaoCliente daoCliente = DaoSqlServerCliente.ObtenerDao();
+        public static readonly IDaoFactura daoFactura = DaoSqlServerFactura.ObtenerDao();
+        public static readonly IDaoUsuario daoUsuario = DaoSqlServerUsuario.ObtenerDao();
+
         protected void Session_Start(object sender, EventArgs e)
         {
             Session["carrito"] = new Entidades.Carrito();

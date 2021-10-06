@@ -26,9 +26,7 @@ namespace PresentacionWebForms.usuarios
 
             Cliente cliente = new Cliente(id, nombre, apellidos, fechaNacimiento);
 
-            IDaoCliente dao = DaoSqlServerCliente.ObtenerDao();
-
-            dao.Insertar(cliente);
+            Global.daoCliente.Insertar(cliente);
 
             Session["cliente"] = cliente;
 

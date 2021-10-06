@@ -13,8 +13,8 @@ namespace PresentacionWebForms
 {
     public partial class Carrito : System.Web.UI.Page
     {
-        private IDaoFactura dao = DaoSqlServerFactura.ObtenerDao();
-        public Entidades.Carrito Modelo => Session["carrito"] as Entidades.Carrito;
+        private static readonly IDaoFactura dao = Global.daoFactura;
+        private Entidades.Carrito Modelo => Session["carrito"] as Entidades.Carrito;
         protected void Page_Load(object sender, EventArgs e)
         {
             //Cantidad.Click += Cantidad_Click;
@@ -30,6 +30,7 @@ namespace PresentacionWebForms
             long id = (long)e.Keys[0];
             (Session["carrito"] as Entidades.Carrito).Eliminar(id);
             ProductosGridView.DataBind();
+
             TotalConIvaLabel.Text = Modelo.TotalConIva.ToString("c");
         }
 
@@ -42,8 +43,10 @@ namespace PresentacionWebForms
 
             Modelo[cantidad.IdRelacionado.Value].Cantidad = cantidad.Unidades;
             ProductosGridView.DataBind();
+
             TotalConIvaLabel.Text = Modelo.TotalConIva.ToString("c");
 
+            // Para forzar la recarga de la página a pesar del UpdatePanel del control Cantidad.ascx
             Response.Redirect("~/Carrito.aspx");
         }
 
@@ -74,8 +77,6 @@ namespace PresentacionWebForms
             }
 
             Factura factura = new Factura(null, null, DateTime.Today, cliente, Modelo);
-
-            factura.Carrito = Session["carrito"] as Entidades.Carrito;
 
             dao.Insertar(factura);
 

@@ -107,22 +107,14 @@ namespace Daos
                     Categoria categoria;
                     Producto producto = null;
                     
-                    IDictionary<long, Categoria> categorias = new Dictionary<long, Categoria>(); 
                     long categoriaId;
 
                     if (dr.Read())
                     {
                         categoriaId = (long)dr["cId"];
 
-                        if (categorias.ContainsKey(categoriaId))
-                        {
-                            categoria = categorias[categoriaId];
-                        }
-                        else
-                        {
-                            categoria = new Categoria((long)dr["cId"], (string)dr["cNombre"]);
-                        }
-
+                        categoria = new Categoria((long)dr["cId"], (string)dr["cNombre"]);
+                        
                         producto = new Producto((long)dr["Id"], (string)dr["Nombre"], (decimal)dr["Precio"], categoria);
                     }
 
@@ -157,12 +149,15 @@ namespace Daos
                     IDataReader dr = com.ExecuteReader();
 
                     List<Producto> productos = new List<Producto>();
-                    Categoria categoria;
+                    Categoria categoria = null;
                     Producto producto;
 
                     while (dr.Read())
                     {
-                        categoria = new Categoria((long)dr["cId"], (string)dr["cNombre"]);
+                        if (categoria == null)
+                        {
+                            categoria = new Categoria((long)dr["cId"], (string)dr["cNombre"]);
+                        }
                         producto = new Producto((long)dr["Id"], (string)dr["Nombre"], (decimal)dr["Precio"], categoria);
                         productos.Add(producto);
                     }

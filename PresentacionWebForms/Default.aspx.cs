@@ -12,7 +12,7 @@ namespace PresentacionWebForms
 {
     public partial class Default : System.Web.UI.Page
     {
-        private static readonly IDaoProducto dao = Daos.DaoSqlServerProducto.ObtenerDao();
+        private static readonly IDaoProducto dao= Global.daoProducto;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -38,45 +38,6 @@ namespace PresentacionWebForms
                 carrito.Agregar(producto, unidades);
 
                 Response.Redirect("~/Carrito.aspx");
-            }
-        }
-
-        protected void Cantidad_Click(object sender, EventArgs e)
-        {
-            LinkButton b = (LinkButton)sender;
-            Debug.Print(b.CommandName);
-
-            TextBox cantidadTextBox = (TextBox)b.Parent.FindControl("CantidadTextBox");
-            Debug.Print(cantidadTextBox.Text);
-
-            int cantidad = int.Parse(cantidadTextBox.Text);
-
-            switch (b.CommandName)
-            {
-                case "menos": cantidad--; break;
-                case "mas": cantidad++; break;
-            }
-
-            cantidadTextBox.Text = cantidad.ToString();
-        }
-
-        protected void ProductosRepeater_ItemCreated(object sender, RepeaterItemEventArgs e)
-        {
-            ScriptManager scriptMan = ScriptManager.GetCurrent(this);
-            
-            LinkButton menos = e.Item.FindControl("MenosButton") as LinkButton;
-            LinkButton mas = e.Item.FindControl("MasButton") as LinkButton;
-            
-            if (menos != null)
-            {
-                menos.Click += Cantidad_Click;
-                scriptMan.RegisterAsyncPostBackControl(menos);
-            }
-
-            if (mas != null)
-            {
-                mas.Click += Cantidad_Click;
-                scriptMan.RegisterAsyncPostBackControl(mas);
             }
         }
     }

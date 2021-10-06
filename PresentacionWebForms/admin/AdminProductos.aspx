@@ -63,7 +63,7 @@
                     <%--<asp:BoundField DataField="Categoria.Nombre" HeaderText="Categoria" SortExpression="Categoria.Nombre"></asp:BoundField>--%>
                 </Columns>
             </asp:GridView>
-            <asp:ObjectDataSource OnUpdated="ProductosDataSource_Updated" OnObjectCreating="ProductosDataSource_ObjectCreating" runat="server" ID="ProductosDataSource" DataObjectTypeName="Entidades.Producto" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerTodosPorCategoria" TypeName="Daos.DaoSqlServerProducto" UpdateMethod="Modificar">
+            <asp:ObjectDataSource OnUpdated="ProductosDataSource_Updated" OnObjectCreating="ProductosDataSource_ObjectCreating" runat="server" ID="ProductosDataSource" DataObjectTypeName="Entidades.Producto" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerTodosPorCategoria" TypeName="Daos.IDaoProducto" UpdateMethod="Modificar">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="ListadoGridView" PropertyName="SelectedValue" Name="id" Type="Int64"></asp:ControlParameter>
                 </SelectParameters>
@@ -104,7 +104,7 @@
                     <asp:LinkButton runat="server" Text="Editar" CommandName="Edit" ID="EditButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Eliminar" CommandName="Delete" ID="DeleteButton" CausesValidation="False" />&nbsp;<asp:LinkButton runat="server" Text="Nuevo" CommandName="New" ID="NewButton" CausesValidation="False" />
                 </ItemTemplate>
             </asp:FormView>
-            <asp:ObjectDataSource OnObjectCreating="ProductosDataSource_ObjectCreating" runat="server" ID="ProductoDataSource" DataObjectTypeName="Entidades.Producto" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerPorId" TypeName="Daos.DaoSqlServerProducto" UpdateMethod="Modificar">
+            <asp:ObjectDataSource OnObjectCreating="ProductosDataSource_ObjectCreating" runat="server" ID="ProductoDataSource" DataObjectTypeName="Entidades.Producto" DeleteMethod="Borrar" InsertMethod="Insertar" SelectMethod="ObtenerPorId" TypeName="Daos.IDaoProducto" UpdateMethod="Modificar">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="ProductosGridView" PropertyName="SelectedValue" Name="id" Type="Int64"></asp:ControlParameter>
                 </SelectParameters>
