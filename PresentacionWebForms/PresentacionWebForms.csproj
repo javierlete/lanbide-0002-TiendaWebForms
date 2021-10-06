@@ -132,6 +132,8 @@
     <Content Include="sql\mf0966.sql" />
     <Content Include="usuarios\AltaCliente.aspx" />
     <Content Include="WebForm1.aspx" />
+    <Content Include="clientes\Web.config" />
+    <Content Include="admin\Web.config" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\fontawesome\all.js" />
     <Content Include="Scripts\fontawesome\all.min.js" />

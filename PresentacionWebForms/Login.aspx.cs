@@ -57,8 +57,20 @@ namespace PresentacionWebForms
                     throw new ArgumentException("No se reconoce el comando " + comando);
             }
 
+            Roles.AddUserToRole(usuarioVerificado.Email, "USUARIO");
+
             IDaoCliente daoCliente = DaoSqlServerCliente.ObtenerDao();
             Cliente cliente = daoCliente.ObtenerPorId(usuarioVerificado.Id.Value);
+
+            if(cliente != null)
+            {
+                Roles.AddUserToRole(usuarioVerificado.Email, "CLIENTE");
+            }
+
+            if(usuarioVerificado.Email == "admin@email.net")
+            {
+                Roles.AddUserToRole(usuarioVerificado.Email, "ADMIN");
+            }
 
             Session["usuario"] = usuarioVerificado;
             Session["cliente"] = cliente;

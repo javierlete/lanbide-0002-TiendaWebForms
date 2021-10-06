@@ -24,6 +24,10 @@ namespace PresentacionWebForms
         }
         protected void Application_Start(object sender, EventArgs e)
         {
+            if(!Roles.RoleExists("ADMIN")) Roles.CreateRole("ADMIN");
+            if (!Roles.RoleExists("USUARIO")) Roles.CreateRole("USUARIO");
+            if (!Roles.RoleExists("CLIENTE")) Roles.CreateRole("CLIENTE");
+
             string JQueryVer = "3.6.0";
             ScriptManager.ScriptResourceMapping.AddDefinition("jquery", new ScriptResourceDefinition
             {
