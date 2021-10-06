@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Daos
 {
     public class DaoSqlServerCliente : IDaoCliente
     {
-        private const string CADENA_CONEXION = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=mf0966;Integrated Security=True";
+        private static readonly string CADENA_CONEXION = ConfigurationManager.AppSettings["CadenaConexion"]; 
         private const string SQL_SELECT_ID = @"SELECT * FROM Clientes WHERE Id=@Id";
         private const string SQL_INSERT = @"INSERT INTO Clientes (Id, Nombre, Apellidos, FechaNacimiento) VALUES (@Id, @Nombre, @Apellidos, @FechaNacimiento)";
 

@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Daos
 {
     public class DaoSqlServerUsuario : IDaoUsuario
     {
-        private const string CADENA_CONEXION = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=mf0966;Integrated Security=True";
+        private static readonly string CADENA_CONEXION = ConfigurationManager.AppSettings["CadenaConexion"];
         private const string SQL_SELECT_BY_EMAIL = "SELECT * FROM Usuarios WHERE Email=@Email";
         private const string SQL_INSERT = @"INSERT INTO Usuarios (Email, Password) VALUES (@Email, @Password)";
 

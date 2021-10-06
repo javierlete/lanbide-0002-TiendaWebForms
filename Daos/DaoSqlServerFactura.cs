@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Daos
 {
     public class DaoSqlServerFactura : IDaoFactura
     {
-        private const string CADENA_CONEXION = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=mf0966;Integrated Security=True";
+        private static readonly string CADENA_CONEXION = ConfigurationManager.AppSettings["CadenaConexion"];
         private const string SQL_SELECT_ID = @"SELECT * FROM Facturas WHERE Id=@Id";
         private const string SQL_SELECT_LINEAS = @"SELECT p.Id AS ProductoId, p.Nombre AS ProductoNombre, p.Precio AS ProductoPrecio, Cantidad FROM FacturasProductos fp JOIN Productos p ON p.Id = fp.ProductoId WHERE FacturaId=@FacturaId";
         private const string SQL_ULTIMA_FACTURA = @"SELECT TOP 1 Numero FROM Facturas WHERE YEAR(Fecha) = @Year ORDER BY Numero DESC";
