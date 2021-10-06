@@ -58,7 +58,7 @@ namespace Daos
 
                     transaccion = con.BeginTransaction();
 
-                    SqlCommand com = (SqlCommand)con.CreateCommand();
+                    IDbCommand com = con.CreateCommand();
 
                     com.Transaction = (SqlTransaction)transaccion;
                     com.CommandText = SQL_INSERT;
@@ -83,7 +83,7 @@ namespace Daos
 
                     factura.Id = (long)com.ExecuteScalar();
 
-                    com = (SqlCommand)con.CreateCommand();
+                    com = con.CreateCommand();
 
                     com.Transaction = (SqlTransaction)transaccion;
                     com.CommandText = SQL_INSERT_LINEA;
