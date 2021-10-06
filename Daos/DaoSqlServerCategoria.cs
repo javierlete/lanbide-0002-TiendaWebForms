@@ -13,8 +13,8 @@ namespace Daos
     public class DaoSqlServerCategoria : IDaoCategoria
     {
         private static readonly string CADENA_CONEXION = ConfigurationManager.AppSettings["CadenaConexion"];
-        private const string SQL_SELECT = @"SELECT * FROM Categorias";
-        private const string SQL_SELECT_ID = SQL_SELECT + @" WHERE Id = @Id";
+        private const string SQL_SELECT = @"SELECT * FROM Categorias ORDER BY Id";
+        private const string SQL_SELECT_ID = @"SELECT * FROM Categorias WHERE Id = @Id";
         private const string SQL_INSERT = @"INSERT INTO Categorias (Nombre) VALUES (@Nombre)";
         private const string SQL_UPDATE = @"UPDATE Categorias SET Nombre=@Nombre WHERE Id = @Id";
         private const string SQL_DELETE = @"DELETE FROM Categorias WHERE Id = @Id";
