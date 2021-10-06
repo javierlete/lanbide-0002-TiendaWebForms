@@ -12,6 +12,8 @@ namespace PresentacionWebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            AdminLi.Visible = System.Security.Claims.ClaimsPrincipal.Current.IsInRole("ADMIN");
+
             if (Session["usuario"] != null)
             {
                 UsuarioLabel.Text = (Session["usuario"] as Entidades.Usuario)?.Email;

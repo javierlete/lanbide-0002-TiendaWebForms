@@ -31,6 +31,9 @@
                     </ul>
                     <asp:Label ID="UsuarioLabel" CssClass="navbar-text" runat="server"></asp:Label>
                     <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li id="AdminLi" runat="server" class="nav-item">
+                            <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/admin/AdminProductos.aspx">Administrar</asp:HyperLink>
+                        </li>
                         <li id="LoginLi" runat="server" class="nav-item">
                             <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Login.aspx">Login</asp:HyperLink>
                         </li>
