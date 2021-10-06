@@ -47,6 +47,7 @@ namespace Daos
         public Factura Insertar(Factura factura)
         {
             factura.Numero = ObtenerSiguienteNumeroFactura();
+            IDbTransaction transaccion = null;
 
             using (IDbConnection con = ObtenerConexion())
             {
@@ -54,8 +55,11 @@ namespace Daos
                 {
                     con.Open();
 
+                    transaccion = con.BeginTransaction();
+
                     SqlCommand com = (SqlCommand)con.CreateCommand();
 
+                    com.Transaction = (SqlTransaction)transaccion;
                     com.CommandText = SQL_INSERT;
 
                     IDbDataParameter parNumero = com.CreateParameter();
@@ -80,6 +84,7 @@ namespace Daos
 
                     com = (SqlCommand)con.CreateCommand();
 
+                    com.Transaction = (SqlTransaction)transaccion;
                     com.CommandText = SQL_INSERT_LINEA;
 
                     IDbDataParameter parFacturaId = com.CreateParameter();
@@ -106,11 +111,14 @@ namespace Daos
                         com.ExecuteNonQuery();
                     }
 
+                    transaccion.Commit();
                     return factura;
                 }
 
                 catch (Exception e)
                 {
+                    transaccion?.Rollback();
+
                     throw new DaoException("No se ha podido insertar la factura", e);
                 }
             }
